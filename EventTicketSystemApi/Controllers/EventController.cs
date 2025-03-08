@@ -17,10 +17,10 @@ namespace EventTicketSystemApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EventDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<EventDTO>>> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
-            var events = await _service.GetEventsAsync();
-            return Ok(events);
+            var result = await _service.GetEventsAsync(page, pageSize);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]

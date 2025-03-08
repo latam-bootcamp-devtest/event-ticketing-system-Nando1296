@@ -2,6 +2,7 @@
 using EventTicketSystemApi.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace EventTicketSystemApi.Repositories
 {
     public class EventRepository : IEventRepository
@@ -20,7 +21,31 @@ namespace EventTicketSystemApi.Repositories
             return ev;
         }
 
-        public async Task<IEnumerable<Event>> GetAllAsync() => await _context.Events.ToListAsync();
+        public async Task<object> GetAllAsync(int page, int pageSize)
+        {
+            var query = _context.Events
+                .Where(e => e.Date >= DateTime.Now)
+                .OrderBy(e => e.Date);
+
+            var totalEvents = await query.CountAsync();
+
+            var totalPages = (int)Math.Ceiling(totalEvents / (double)pageSize);
+
+            var events = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new
+            {
+                CurrentPage = page,
+                PageSize = pageSize,
+                totalPages = totalPages,
+                totalEvents = totalEvents,
+                Events = events
+            };
+
+        }
 
         public async Task<Event?> GetByIdAsync(int id) => await _context.Events.FindAsync(id);
     }

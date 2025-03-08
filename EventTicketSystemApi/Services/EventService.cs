@@ -30,11 +30,11 @@ namespace EventTicketSystemApi.Services
             return new EventDTO(newEvent);
         }
 
-        public async Task<IEnumerable<EventDTO>> GetEventsAsync()
+        public async Task<object> GetEventsAsync(int page, int pageSize)
         {
-            var events = await _repository.GetAllAsync();
-            return events.Select(e => new EventDTO(e));
+            return await _repository.GetAllAsync(page, pageSize);
         }
+        
 
         public async Task<EventDTO?> GetEventByIdAsync(int id)
         {

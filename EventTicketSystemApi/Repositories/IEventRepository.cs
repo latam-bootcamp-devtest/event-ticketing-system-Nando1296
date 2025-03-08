@@ -5,7 +5,7 @@ namespace EventTicketSystemApi.Repositories
 {
     public interface IEventRepository
     {
-        Task<IEnumerable<Event>> GetAllAsync();
+        Task<object> GetAllAsync(int page, int pagesSize);
         Task<Event> CreateEventAsync(Event @event);
         Task<Event?> GetByIdAsync(int id);
     }
