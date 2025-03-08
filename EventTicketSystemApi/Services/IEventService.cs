@@ -5,7 +5,7 @@ namespace EventTicketSystemApi.Services
 {
     public interface IEventService
     {
-        Task<IEnumerable<EventDTO>> GetAllAsync();
+        Task<IEnumerable<EventDTO>> GetEventsAsync();
         Task<EventDTO> CreateEventAsync(EventDTO @eventDto);
         Task<EventDTO> GetEventByIdAsync(int id);
     }

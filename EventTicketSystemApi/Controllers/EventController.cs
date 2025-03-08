@@ -16,6 +16,13 @@ namespace EventTicketSystemApi.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<EventDTO>>> GetAll()
+        {
+            var events = await _service.GetEventsAsync();
+            return Ok(events);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<EventDTO>> GetById(int id)
         {

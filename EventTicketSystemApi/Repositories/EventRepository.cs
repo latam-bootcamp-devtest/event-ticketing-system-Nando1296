@@ -1,5 +1,6 @@
 ﻿using EventTicketSystemApi.Data;
 using EventTicketSystemApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventTicketSystemApi.Repositories
 {
@@ -19,10 +20,7 @@ namespace EventTicketSystemApi.Repositories
             return ev;
         }
 
-        public Task<IEnumerable<Event>> GetEventAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IEnumerable<Event>> GetAllAsync() => await _context.Events.ToListAsync();
 
         public async Task<Event?> GetByIdAsync(int id) => await _context.Events.FindAsync(id);
     }

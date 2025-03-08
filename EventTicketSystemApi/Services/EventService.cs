@@ -30,9 +30,10 @@ namespace EventTicketSystemApi.Services
             return new EventDTO(newEvent);
         }
 
-        public Task<IEnumerable<EventDTO>> GetAllAsync()
+        public async Task<IEnumerable<EventDTO>> GetEventsAsync()
         {
-            throw new NotImplementedException();
+            var events = await _repository.GetAllAsync();
+            return events.Select(e => new EventDTO(e));
         }
 
         public async Task<EventDTO?> GetEventByIdAsync(int id)
